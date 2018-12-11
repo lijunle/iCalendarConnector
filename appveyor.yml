@@ -1,0 +1,17 @@
+version: '{build}'
+
+build_script:
+  - cmd: msbuild "iCalendarConnector\iCalendarConnector.mproj" /p:Configuration=Release /logger:"C:\Program Files\AppVeyor\BuildAgent\Appveyor.MSBuildLogger.dll"
+
+artifacts:
+  - path: iCalendarConnector\bin\Release\iCalendarConnector.mez
+    name: iCalendarConnector
+
+deploy:
+  - provider: GitHub
+    auth_token:
+      secure: a9M4zPaGqD70D6DEtqbrk7zwZL7k/Wags0MO34rkbZmbJ0AsbP/vTDffG/P3cGoA
+    artifact: iCalendarConnector
+    draft: false
+    on:
+      APPVEYOR_REPO_TAG: true
